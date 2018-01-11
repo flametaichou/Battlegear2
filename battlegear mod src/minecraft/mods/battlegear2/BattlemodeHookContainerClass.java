@@ -25,6 +25,7 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -124,7 +125,9 @@ public final class BattlemodeHookContainerClass {
                 }else if(BattlegearUtils.usagePriorAttack(offhandItem, event.entityPlayer, true)) {
                     ItemStack mainHandItem = event.entityPlayer.getCurrentEquippedItem();
                     if (mainHandItem == null || !BattlegearUtils.usagePriorAttack(mainHandItem, event.entityPlayer, false)) {
-                        event.setCanceled(true);
+                        if (event.world.getBlock(event.x,event.y,event.z) == Blocks.air) {
+                            event.setCanceled(true);
+                        }
                     }
                 }
             }
